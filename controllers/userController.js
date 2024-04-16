@@ -82,3 +82,41 @@ exports.login_post = (req, res, next) => {
 		});
 	})(req, res, next);
 };
+
+// Log out page GET
+exports.logout_get = (req, res, next) => {
+	req.logout((err) => {
+		return err ? next(err) : res.redirect('/');
+	});
+};
+
+// Code form GET
+exports.code_get = asyncHandler(async (req, res, next) => {
+	if (req.isAuthenticated()) {
+		res.render('upgrade-form');
+	} else {
+		res.redirect('/');
+	}
+});
+
+exports.code_post = asyncHandler(async (req, res, next) => {
+	if (!req.isAuthenticated()) {
+		res.redirect('/login');
+	}
+
+	if (req.body.code === process.env.MEMBER_PASSWORD) {
+		const result = await User.findByIdAndUpdate(req.params.id, {
+			membership_status: 'user',
+		});
+		if (result) {
+			res.redirect('/');
+		} else {
+			const err = new Error('User not found');
+			return next(err);
+		}
+	} else {
+		res.render('upgrade-form', { wrongCode: true });
+	}
+});
+
+// Code form POST

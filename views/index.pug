@@ -6,6 +6,16 @@ block content
   if user
     p Welcome back #{user.user_name}!
 
+    if user.membership_status === "guest"
+      p Try to guess the code 
+        a(href=user.url + "/upgrade") here.
+    else
+      p You currently have 
+        span(style="font-weight: 600") #{user.membership_status} 
+        span status.
+
+      a(href="/logout") Log Out 
+
   else
     p Welcome to Members Club!  
     p
