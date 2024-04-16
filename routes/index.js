@@ -4,13 +4,28 @@ const userController = require('../controllers/userController');
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-	res.render('index', { title: 'Members Only' });
+	if (req.isAuthenticated()) {
+		res.render('index', {
+			title: 'Members Only',
+			user: req.user,
+		});
+	} else {
+		res.render('index', { title: 'Members Only' });
+	}
 });
 
-/** GET sign up page */
-router.get('/sign-up', userController.signup_get);
+/**Sign up*/
+//
+router.get('/signup', userController.signup_get);
 
-/** POST sign up page */
-router.post('/sign-up', userController.signup_post);
+//
+router.post('/signup', userController.signup_post);
+
+/**Log in*/
+//
+router.get('/login', userController.login_get);
+
+//
+router.post('/login', userController.login_post);
 
 module.exports = router;

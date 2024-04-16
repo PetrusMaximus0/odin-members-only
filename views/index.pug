@@ -2,10 +2,15 @@ extends layout
 
 block content
   h2 Members Club
-  p Welcome to Members Club!
-  p
-    span Please 
-    a(href="/login") login  
-    span or sign up 
-    a(href="/sign-up") here 
+  
+  if user
+    p Welcome back #{user.user_name}!
+
+  else
+    p Welcome to Members Club!  
+    p
+      span Please 
+      a(href="/login") login  
+      span or sign up 
+      a(href="/signup") here 
 

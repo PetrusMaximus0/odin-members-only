@@ -2,16 +2,16 @@ const User = require('../models/user');
 const { body, validationResult } = require('express-validator');
 const asyncHandler = require('express-async-handler');
 const bcrypt = require('bcryptjs');
+const passport = require('passport');
 
 // Signup page GET
 exports.signup_get = asyncHandler(async (req, res, next) => {
-	res.render('sign-up', {
+	res.render('signup', {
 		title: 'Sign up',
 	});
 });
 
 // Signup page POST
-
 const validatePassword = (value, req) => {
 	if (value !== req.body.password) {
 		throw new Error('The passwords must match!');
@@ -19,7 +19,7 @@ const validatePassword = (value, req) => {
 		return true;
 	}
 };
-
+//
 exports.signup_post = [
 	// Validate and sanitize
 	body('first_name').trim().isLength({ max: 100 }).escape(),
@@ -35,7 +35,7 @@ exports.signup_post = [
 		const errors = validationResult(req);
 		if (!errors.isEmpty()) {
 			// There are errors, render the form again with errors and sanitized values
-			res.render('sign-up', {
+			res.render('signup', {
 				user: {
 					user_name: req.body.user_name,
 					first_name: req.body.first_name,
@@ -52,11 +52,33 @@ exports.signup_post = [
 			user_name: req.body.user_name,
 			first_name: req.body.first_name,
 			last_name: req.body.last_name,
-			password: bcrypt.hash(req.body.password, 10),
-			membership_status: 'user',
+			password: await bcrypt.hash(req.body.password, 10),
+			membership_status: 'guest',
 		});
 
 		await newUser.save();
-		res.redirect(newUser.url);
+		res.redirect('/');
 	}),
 ];
+
+// Log in page GET
+exports.login_get = asyncHandler(async (req, res, next) => {
+	res.render('login', { title: 'Log in' });
+});
+
+// Log in page POST
+exports.login_post = (req, res, next) => {
+	passport.authenticate('local', function (err, user, info, status) {
+		if (err) {
+			console.log('We got an error');
+			return next(err);
+		}
+		if (!user) {
+			res.render('login', { errors: [info.message] });
+			return;
+		}
+		req.logIn(user, function (err) {
+			return err ? next(err) : res.redirect('/');
+		});
+	})(req, res, next);
+};
