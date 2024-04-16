@@ -55,9 +55,10 @@ exports.signup_post = [
 			password: await bcrypt.hash(req.body.password, 10),
 			membership_status: 'guest',
 		});
-
 		await newUser.save();
-		res.redirect('/');
+
+		// Log in the user
+		res.redirect('/users/login');
 	}),
 ];
 

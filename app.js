@@ -5,13 +5,14 @@ const logger = require('morgan');
 const sassMiddleware = require('node-sass-middleware');
 const session = require('express-session');
 const mongoose = require('mongoose');
-const indexRouter = require('./routes/index');
 const MongoStore = require('connect-mongo');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const User = require('./models/user');
 const bcrypt = require('bcryptjs');
-
+//
+const usersRouter = require('./routes/users');
+const indexRouter = require('./routes/index');
 /**Set up the mongoose connection*/
 main().catch((err) => {
 	console.log('Connection has failed!', err);
@@ -114,7 +115,10 @@ app.use(
 );
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Routes
 app.use('/', indexRouter);
+app.use('/users', usersRouter);
+
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
 	next(createError(404));
