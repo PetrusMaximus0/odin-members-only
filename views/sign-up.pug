@@ -1,0 +1,48 @@
+extends layout
+
+block content 
+    h1(style="text-align:center") Sign up form
+    form.form-sign-up(action="", method="post")
+        fieldset.fieldset 
+            legend Personal Information
+            
+            label(for="user_name") Username:
+            input(
+                type="text", 
+                name="user_name", 
+                required, 
+                placeholder="Joe9000",
+                value=(undefined === user || undefined === user.user_name ? "": user.user_name))
+
+
+            label(for="first_name") First Name:
+            input(
+                type="text", 
+                name="first_name", 
+                required, 
+                placeholder="Joe", 
+                value=(undefined === user || undefined === user.first_name ? "": user.first_name)) 
+            
+            label(for="last_name") Last Name:
+            input(
+                type="text", 
+                name="last_name", 
+                required, 
+                placeholder="Dohn", 
+                value=(undefined === user || undefined === user.last_name ? "": user.last_name)) 
+
+        fieldset.fieldset 
+            legend Access Security
+            label(for="password") Password:
+            input(type="password", name="password", required)
+            label(for="password-confirm") Confirm Password:
+            input(type="password", name="password-confirm", required)
+
+        div.btn-container
+            button.btn-submit(type="submit") Sign up
+            a.btn-cancel(href="/") Return
+    
+        if errors
+            ul
+                each error in errors
+                    li= error.msg

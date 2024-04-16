@@ -8,6 +8,8 @@ var sassMiddleware = require('node-sass-middleware');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
+/**Set up the mongoose connection*/
+
 var app = express();
 
 // view engine setup
