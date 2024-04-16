@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
-const message = require('./message');
 
 // Create the Schema
 const UserSchema = mongoose.Schema({
 	first_name: { type: String, required: true, maxLenght: 100 },
 	last_name: { type: String, required: true, maxLenght: 100 },
 	username: { type: String, required: true, maxLenght: 100 },
+	password: { type: String, required: true, maxLenght: 100 },
 	membership_status: {
 		type: String,
 		enum: ['admin', 'user', 'guest'],
@@ -15,6 +15,15 @@ const UserSchema = mongoose.Schema({
 });
 
 // Create necessary virtuals
+// Url
+UserSchema.virtual('url').get(function () {
+	return `/users/${this._id}`;
+});
+
+// Full name
+UserSchema.virtual('fullname').get(function () {
+	return `${this.first_name} ${this.last_name}`;
+});
 
 // Export the model
 module.exports = mongoose.model('User', UserSchema);
