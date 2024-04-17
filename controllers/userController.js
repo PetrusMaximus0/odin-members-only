@@ -22,10 +22,31 @@ const validatePassword = (value, req) => {
 //
 exports.signup_post = [
 	// Validate and sanitize
-	body('first_name').trim().isLength({ max: 100 }).escape(),
-	body('last_name').trim().isLength({ max: 100 }).escape(),
-	body('user_name').trim().isLength({ max: 100 }).escape(),
-	body('password').trim().isLength({ max: 100 }).escape(),
+	body('first_name')
+		.trim()
+		.isAlphanumeric()
+		.withMessage(
+			'Name fields must consist of single words composed of alphanumeric characters'
+		)
+		.isLength({ min: 1, max: 100 })
+		.escape(),
+	body('last_name')
+		.trim()
+		.isAlphanumeric()
+		.withMessage(
+			'Name fields must consist of single words composed of alphanumeric characters'
+		)
+		.isLength({ min: 1, max: 100 })
+		.escape(),
+	body('user_name')
+		.trim()
+		.isAlphanumeric()
+		.withMessage(
+			'Name fields must consist of single words composed of alphanumeric characters'
+		)
+		.isLength({ min: 1, max: 100 })
+		.escape(),
+	body('password').trim().isLength({ min: 1, max: 100 }).escape(),
 	body('password-confirm')
 		.trim()
 		.custom((value, { req }) => validatePassword(value, req))
@@ -94,7 +115,7 @@ exports.logout_get = (req, res, next) => {
 // Code form GET
 exports.code_get = asyncHandler(async (req, res, next) => {
 	if (req.isAuthenticated()) {
-		res.render('upgrade-form');
+		res.render('upgrade-form', { title: 'Upgrade to Member' });
 	} else {
 		res.redirect('/');
 	}
@@ -116,7 +137,10 @@ exports.code_post = asyncHandler(async (req, res, next) => {
 			return next(err);
 		}
 	} else {
-		res.render('upgrade-form', { wrongCode: true });
+		res.render('upgrade-form', {
+			title: 'Upgrade to member',
+			wrongCode: true,
+		});
 	}
 });
 

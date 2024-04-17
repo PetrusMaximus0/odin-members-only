@@ -1,0 +1,24 @@
+extends layout
+block content 
+    h1.heading-center Create a new message
+
+    form.form-message(action="", method="post")
+        fieldset.fieldset
+            label(for="title") Title
+            input(name="title" type="text", required, placeholder="The title of your message", maxlength="100")
+            label(for="message") Message:
+            textarea(
+                name="message", 
+                cols="30", rows="20", 
+                required,
+                maxlength="500", 
+                placeholder="Write your message here, maximum of 500 characters")
+        
+        button(type="submit") Submit Message
+        a(href="/") Cancel 
+        
+        if errors
+            ul
+                each error in errors
+                    li #{error.msg}
+

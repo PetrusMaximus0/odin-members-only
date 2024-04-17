@@ -1,6 +1,4 @@
 body {
-  padding: 0;
-  margin: 0;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   background-color: black;
   color: white; }
@@ -8,6 +6,26 @@ body {
 a {
   color: #00B7FF;
   text-decoration: none; }
+
+.container-s {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 1rem; }
+  .container-s .links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem; }
+
+.container-m {
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 1rem; }
+  .container-m .links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem; }
 
 .form-sign-up {
   display: flex;
@@ -73,5 +91,99 @@ a {
     .form-login button:hover {
       background-color: black;
       color: lightblue; }
+
+.form-message {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 720px;
+  margin: 0 auto;
+  font-weight: 600; }
+  .form-message ul {
+    list-style: none; }
+  .form-message .fieldset {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem; }
+  .form-message textarea {
+    resize: none; }
+  .form-message button {
+    color: black;
+    background-color: lightblue;
+    border: 1px solid lightblue;
+    padding: 0.75rem 2rem;
+    font-size: medium;
+    text-align: center;
+    box-sizing: content-box; }
+    .form-message button:hover {
+      background-color: black;
+      color: lightblue; }
+  .form-message a {
+    color: black;
+    background-color: lightblue;
+    border: 1px solid lightblue;
+    padding: 0.75rem 2rem;
+    font-size: medium;
+    text-align: center;
+    box-sizing: content-box; }
+    .form-message a:hover {
+      background-color: black;
+      color: lightblue; }
+
+.code-content {
+  font-size: large;
+  text-align: center; }
+
+.form-code {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: large; }
+  .form-code button {
+    color: black;
+    background-color: lightblue;
+    border: 1px solid lightblue;
+    padding: 0.75rem 2rem;
+    font-size: medium;
+    text-align: center;
+    box-sizing: content-box;
+    padding: 0.2rem 0.75rem; }
+    .form-code button:hover {
+      background-color: black;
+      color: lightblue; }
+
+.posts-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center; }
+
+.posts-list {
+  padding: 0;
+  list-style: none; }
+
+.posts-btn {
+  text-decoration: none;
+  font-weight: 600;
+  color: lightcoral; }
+
+.posts-delete {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  gap: 0.2rem; }
+  .posts-delete .btn {
+    text-decoration: none;
+    color: black;
+    padding: 0.25rem 0.75rem;
+    background-color: lightblue;
+    border: 1px solid lightblue;
+    font-size: medium; }
+    .posts-delete .btn:hover {
+      background-color: black;
+      color: lightblue;
+      border-color: lightblue; }
+
+.heading-center {
+  text-align: center; }
 
 /*# sourceMappingURL=style.css.map */

@@ -21,7 +21,7 @@ UserSchema.virtual('url').get(function () {
 });
 
 // Full name
-UserSchema.virtual('fullname').get(function () {
+UserSchema.virtual('full_name').get(function () {
 	return `${this.first_name} ${this.last_name}`;
 });
 

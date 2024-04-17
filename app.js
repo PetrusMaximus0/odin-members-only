@@ -10,9 +10,14 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const User = require('./models/user');
 const bcrypt = require('bcryptjs');
+const compression = require('compression');
+const RateLimit = require('express-rate-limit');
+const helmet = require('helmet');
 //
 const usersRouter = require('./routes/users');
 const indexRouter = require('./routes/index');
+const messagesRouter = require('./routes/messages');
+
 /**Set up the mongoose connection*/
 main().catch((err) => {
 	console.log('Connection has failed!', err);
@@ -36,7 +41,24 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
 // Middleware
+// Set up a rate limiter with a maximum number of requests per minute
+const limiter = RateLimit({
+	windowMs: 60 * 1000,
+	max: 25,
+});
+app.use(limiter);
+
+// Set up CSP headers
+app.use(
+	helmet.contentSecurityPolicy({
+		directives: {
+			'script-src': ["'self'"],
+		},
+	})
+);
+
 //
+app.use(compression());
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -118,6 +140,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Routes
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
+app.use('/messages', messagesRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

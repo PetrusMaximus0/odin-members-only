@@ -1,0 +1,14 @@
+extends layout 
+block content
+    div.container-s
+        h1.heading-center= title
+        p(style="display: flex; justify-content: space-between; font-weight: 600")
+            span Title:  
+                span(style="font-weight: 500") #{message.title} 
+            span Author: 
+                span(style="font-weight: 500") #{message.author.user_name}
+        p Content: #{message.message}
+        p Are you sure ?
+        form.posts-delete(method="post")            
+            button.btn(type="submit") Confirm Deletion
+            a.btn(href="/") Return

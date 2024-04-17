@@ -1,26 +1,50 @@
 extends layout
 
 block content
-  h2 Members Club
-  
-  if user
-    p Welcome back #{user.user_name}!
+    h1.heading-center Members Club  
+    if user
+      section.container-m.heading-center
+        h2 Welcome back #{user.full_name}!
+        p(style="text-align: center") You currently have 
+            span(style="font-weight: 600") #{user.membership_status} 
+            span status.
 
-    if user.membership_status === "guest"
-      p Try to guess the code 
-        a(href=user.url + "/upgrade") here.
+        if user.membership_status === "guest"
+          p Try to guess the code 
+            a(href=user.url + "/upgrade") here.
+
+        div.links
+          a(href="/users/logout") Log Out
+          if user.membership_status === "user" || user.membership_status === "admin"
+            a(href=`/messages/${user._id}/new`) New Post    
     else
-      p You currently have 
-        span(style="font-weight: 600") #{user.membership_status} 
-        span status.
+      section.container-m.heading-center
+        p Welcome to Members Club!  
+        p
+          span Please 
+          a(href="/users/login") login  
+          span or sign up 
+          a(href="/users/signup") here 
+    
+    section.posts-content.container-m
+      h2.heading-center Post List
+      if posts
+        ul.posts-list       
+          each post in posts
+            li.posts-item
+              h3 !{post.title}
+              p !{post.message}
+              
+              if user && user.membership_status !== "guest"
+                p 
+                  span Posted by 
+                  span(style="font-weight: 600") #{post.author.user_name} 
+                  span on 
+                  span(style="font-weight: 600") #{post.timePosted_formatted}
+              
+              if user && user.membership_status === "admin"
+                a.posts-btn(href=`/messages/${post._id}/delete`) Delete Message(admin)
 
-      a(href="/users/logout") Log Out 
-
-  else
-    p Welcome to Members Club!  
-    p
-      span Please 
-      a(href="/users/login") login  
-      span or sign up 
-      a(href="/users/signup") here 
+      else
+        p There are no posts.
 

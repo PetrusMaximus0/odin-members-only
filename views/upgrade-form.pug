@@ -1,12 +1,13 @@
 extends layout 
-block content 
-    h1= title 
-    p Enter the secret code correctly to become a full member of the club!
-    form(action="", method="POST")
-        label(for="code") Code: 
-        input(type="password", name="code", required)
-        button(type="submit") Submit Code
-        
+block content
+    div.container-m.code-content
+        h1= title 
+        p Enter the secret code correctly to become a full member of the club!
+        form.form-code(action="", method="POST")
+            label(for="code") Code: 
+                input(type="password", name="code", required, placeholder="Code here")
+            button(type="submit") Submit Code
+            
         if wrongCode
             p Nuh Uh.. That's the wrong code. Maybe try again.
 

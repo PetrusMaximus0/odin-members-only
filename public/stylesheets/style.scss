@@ -1,6 +1,5 @@
+// Global tag styles
 body{ 
-  padding: 0;
-  margin: 0;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   background-color: black;
   color: white;
@@ -11,6 +10,7 @@ a{
   text-decoration: none;
 }
 
+// Mixins
 @mixin submit-btn{
     color: black;
     background-color: lightblue;
@@ -27,7 +27,42 @@ a{
 
 }
 
+@mixin container-s{
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 1rem;
+}
 
+@mixin container-m{
+  max-width: 720px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+//Styles
+//
+.container{
+
+  @mixin links{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+  }
+  &-s{
+    @include container-s;   
+    .links {
+      @include links;
+    }
+  }
+  &-m{
+    @include container-m;
+    .links{
+      @include links;
+    }    
+  }
+}
+//
 .form-sign-up{
   display: flex;
   flex-direction: column;
@@ -74,7 +109,7 @@ a{
     }    
   }    
 }
-
+//
 .form-login{
   max-width: 400px;
   margin: 0 auto;
@@ -92,5 +127,97 @@ a{
   button{
     @include submit-btn;
   }   
+}
+//
+.form-message {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  max-width: 720px;
+  margin: 0 auto;
+  font-weight: 600;
+
+  ul {
+    list-style: none;
+  }
+
+  .fieldset {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem
+  }
+
+  textarea {
+    resize: none;
+  }
+
+  button {
+    @include submit-btn;
+  }
+
+  a {
+    @include submit-btn;
+  }
+}
+//
+.code-content{
+  font-size: large;
+  text-align: center;
+}
+//
+.form-code{
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;  
+  font-size: large;
+  button{
+    @include submit-btn;    
+    padding: 0.2rem 0.75rem;
+  }
+}
+//
+.posts{
+  &-content{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &-list{
+    padding: 0;
+    list-style: none;
+  }
+
+  &-btn{
+    text-decoration: none;
+    font-weight: 600;
+    color: lightcoral;
+  }
+
+  &-delete{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    gap:0.2rem;
+
+    .btn{
+      text-decoration: none;
+      color: black;
+      padding: 0.25rem 0.75rem;
+      background-color: lightblue;
+      border: 1px solid lightblue;
+      font-size: medium;
+      &:hover{
+        background-color: black;
+        color: lightblue;
+        border-color: lightblue;
+      }
+    }
+  }
+}
+// Common Styles 
+.heading-center {
+  text-align: center;
 }
 
