@@ -1,6 +1,6 @@
 // Global tag styles
 body{ 
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  font: medium, "Lucida Grande", Helvetica, Arial, sans-serif;
   background-color: black;
   color: white;
 }
@@ -30,13 +30,11 @@ a{
 @mixin container-s{
   max-width: 400px;
   margin: 0 auto;
-  padding: 1rem;
 }
 
 @mixin container-m{
   max-width: 720px;
   margin: 0 auto;
-  padding: 1rem;
 }
 
 //Styles

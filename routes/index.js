@@ -6,7 +6,10 @@ const asyncHandler = require('express-async-handler');
 router.get(
 	'/',
 	asyncHandler(async function (req, res, next) {
-		const messages = await Message.find({}).populate('author').exec();
+		const messages = await Message.find({})
+			.sort({ timePosted: -1 })
+			.populate('author')
+			.exec();
 		if (req.isAuthenticated()) {
 			res.render('index', {
 				title: 'Members Only',
